@@ -1,0 +1,37 @@
+@media only screen and (max-width: 40em){
+ 	h1{
+ 		font-size:6em;
+ 		color: blue;
+ 		text-transform: lowercase;
+ 		font-family:serif;
+ 	}
+ } 
+
+ @media only screen and (min-width: 40em){
+ 	h1{
+ 		font-size:6em;
+ 		color: green;
+ 		font-style: italic;
+ 		font-family:serif;
+ 	}
+ }
+
+ @media only screen and (min-width: 55em){
+ 	h1{
+ 		font-size:5em;
+ 		color: orange;
+ 		font-style: normal;
+ 		font-family:sans-serif;
+ 	}
+ }
+
+
+@media only screen and (min-width: 70em){
+ 	h1{
+ 		font-size:5em;
+ 		color: red;
+ 		text-transform: uppercase;
+ 		font-family:cursive;
+ 	}
+ }
+
