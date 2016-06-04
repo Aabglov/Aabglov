@@ -42,13 +42,16 @@ body {
 #cv{
   height:100%;
   width:100%;
-  padding:10%;
   background-color: #000;
 }
 
 /* IS MOBILE PHONE */
 /* Bigger because of iPhone 6*/
 @media only screen and (max-width: 62.0em) {
+
+  #cv{
+    padding:10%;
+  }
 
   #about,#experience,#tools,#why,#now{
       height: 100%;
