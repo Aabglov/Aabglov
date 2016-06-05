@@ -22,7 +22,7 @@ function init(){
     console.log(em_width);
 
     // Create the carousel bindings
-    // Bumping this value up because iPhone 6 is too big in landscape view
+    // Bumping this value up because iPhone 6+ is too big in landscape view
     if(em_width <= 70.0){
       console.log('MOBILE INIT');
       mobileInit();
@@ -47,9 +47,9 @@ function mobileInit(){
     screen_width = $(window).width()
     screen_height = $(window).height();
     // Perform iPhoneHack if the device is an iPhone
-    if(iOS){
-      iPhoneHack(screen_height,screen_width);
-    }
+    //if(iOS){
+    //  iPhoneHack(screen_height,screen_width);
+    //}
   };
 
   // Create Carousel

@@ -5,19 +5,17 @@ body {
   background-color: #000;
 }
 
-.rainbow {
-  /*background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
-  background-image: gradient( linear, left top, right top, color-stop(0, #f22), color-stop(0.15, #f2f), color-stop(0.3, #22f), color-stop(0.45, #2ff), color-stop(0.6, #2f2),color-stop(0.75, #2f2), color-stop(0.9, #ff2), color-stop(1, #f22) );
-  */
+.rainbow, .explain, .title {
+  /* I had to change the hex values of green and blue here because the regular colors were too dark to see*/
 
   /* For Safari 5.1 to 6.0 */
-  background-image: -webkit-linear-gradient(left,red,orange,yellow,green,blue,indigo,violet);
+  background-image: -webkit-linear-gradient(left,red,orange,yellow,#2f2,#66f,violet);
   /* For Opera 11.1 to 12.0 */
-  background-image: -o-linear-gradient(left,red,orange,yellow,green,blue,indigo,violet);
+  background-image: -o-linear-gradient(left,red,orange,yellow,#2f2,#66f,violet);
   /* For Fx 3.6 to 15 */
-  background-image: -moz-linear-gradient(left,red,orange,yellow,green,blue,indigo,violet);
+  background-image: -moz-linear-gradient(left,red,orange,yellow,#2f2,#66f,violet);
   /* Standard syntax */
-  background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet);
+  background-image: linear-gradient(to right, red,orange,yellow,#2f2,#66f,violet);
 
   color:transparent;
   -webkit-background-clip: text;
@@ -29,13 +27,14 @@ body {
   font-size: 50px;
   font-weight: 100;
 }
-.job {
-  font-size: 35px;
-  font-weight: 100;
-}
 .explain {
   font-size: 25px;
-  font-weight: 200;
+  font-weight: 100;
+}
+.link {
+  font-size: 25px;
+  font-weight: 100;
+  color:#f50;
 }
 
 
@@ -64,7 +63,6 @@ body {
   .slick-slider{
     margin-bottom:0;
   }
-
 
   .slick-prev,.slick-next{
     height:44px;
