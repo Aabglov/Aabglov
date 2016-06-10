@@ -46,6 +46,9 @@ function mobileInit(){
   window.onresize = function(event) {
     screen_width = $(window).width()
     screen_height = $(window).height();
+    $("#particles").width(screen_width);
+    $("#particles").height(screen_width); // Keep the box square
+    
     // Perform iPhoneHack if the device is an iPhone
     //if(iOS){
     //  iPhoneHack(screen_height,screen_width);

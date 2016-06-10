@@ -18,6 +18,11 @@
 	<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
 	<script type="text/javascript" src="slick/slick.min.js"></script>
 
+	<!-- DOTS -->
+	<link rel="stylesheet" type="text/css" href="dots/styles.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/synaptic/1.0.4/synaptic.min.js"></script>
+	<script type="text/javascript" src="dots/dots.js"></script>
+
 	<!-- LOCAL -->
 	<link rel="stylesheet" href="css/styles.css" />
 	<script type="text/javascript" src="js/aabglov.js"></script>
@@ -26,7 +31,7 @@
 
 </head>
 
-<body>
+<body onload="Dots()">
           <!-- PRESENTATION IS EVERYTHING -->
   <div id='cv' class="row">
 
@@ -52,27 +57,21 @@
           I do a little bit of everything at my current job.  In addition to the normal responsibilities of a Software Engineer I'm also in charge of all client algorithms from simple geometric formulas to Neural Networks.  This includes verification, implementation, integration, refactoring, definition/documentation and optimization.
         </p>
         <p class="explain">
-          I wear a lot of hats.  I'm a team member, a project leader and an independent contractor.  I've learned how to manage customer expectations, time, resources and stress.
-        </p>
-        <p class="explain">
-          I have worked on several machine learning projects for various clients from local businesses to government agencies.  I've been responsible for design, documentation, server implementation, mobile applications, optimizations and occassionally a full stack solution.
-        </p>
+          When it comes to my tools I like a 8oz single-shot mocha from the local coffee shop, a Mac computer, IDLE or Notepad++ for development, Python and Theano for machine learning and a constant connection to Spotify.  Also preferably a chair to sit in.
     </div>
 
     <div id='tools' class="large-10 columns">
       <div class="title">How</div>
-        <p class="explain">
-          I use a lot of different tools and skills in my day-to-day. The first things I use everyday are an 8oz single-shot Mocha and a Mac.  I'll happily program on a Linux box as well.  Or a tablet connected to an AWS instance.  I've even programmed on my phone once.
+				<canvas id="particles" width="500px" height="500px" ></canvas>
+				<p class="explain">
+          Here's a demo I've been working on to improve GPS tracking on mobile devices.  The dots above move about the area randomly and a recurrent neural network learns how to predict their next positions from their speed and direction.  The squares represent where the network believes the dots to be based on the last location, direction and speed.  To represent more realistic data there's also 20% random noise in both direction and speed.
         </p>
-        <p class="explain">
-          My IDE of choice is different depending on the language.  IDLE is my favorite for Python, but command-line/nano is a close second.  For web development I love Atom (I'm using Atom right now to write this).  When all else fails Notepad++ is extremely versatile.  I'll also use Visual Studio if I have no other choice.
+				<p class="explain">
+          I think this same technology could be applied to mobile sensors such as the accelerometer to reduce the reliance of location-tracking applications on GPS.  This would result in improved battery life while using the apps and the ability to use apps in areas of weak GPS signal.
         </p>
-        <p class="explain">
-          My language of choice for Machine Learning is Python.  Specifically I use a numerical computation module called Theano.  I've used scikit-learn, PyBrain, Pylearn2, but I find none of them compare.  Tensorflow is very powerful as well, but I prefer the fine-grianed control of Theano.
-        </p>
-        <p class="explain">
-          Finally I rely heavily on my background in mathematics to build and train models.  I refused to create a Neural Network in any language until I had derived the formula for Backpropagation by hand.  Ultimately a thorough understanding of math and code is required to be successful when creating complex models.
-        </p>
+				<p class="explain">
+					Special shout-out to <a class="link" href="http://codeflow.org/entries/2010/aug/22/html5-canvas-and-the-flying-dots/">Florian Boesch</a> for the great tutorial on the floating dots and <a class="link" href="http://synaptic.juancazala.com/">Synaptic</a> for the machine learning framework.
+				</p>
     </div>
 
     <div id='now' class="large-10 columns end">
