@@ -28,7 +28,7 @@ var styles = ['rgba(255,0,0,1.0)',
             ];
 
 // Recurrent Neural Network
-var learning_rate = 0.01;
+var learning_rate = 0.03;
 var where_net;
 
 
@@ -41,60 +41,52 @@ function genRandStyle(){
 }
 
 // Get all training inputs from all particles
+function inputSingle(p){
+  var single_input = [];
+  single_input.push( p.position.normalized_x() ); //p.noisy_x );
+  single_input.push( p.position.normalized_y() ); //p.noisy_y );
+  single_input.push( p.velocity.normalized_noisy_angle() );
+  single_input.push( p.velocity.normalized_noisy_magnitude() );
+  return single_input;
+}
 function stackInputs(P){
   var inputs = []
   for(var i = 0; i<P.length; i++){
     var p = P[i];
-    inputs.push( p.position.normalized_x() ); //p.noisy_x );
-    inputs.push( p.position.normalized_y() ); //p.noisy_y );
-    inputs.push( p.velocity.normalized_noisy_angle() );
-    inputs.push( p.velocity.normalized_noisy_magnitude() );
+    inputs = inputs.concat(inputSingle(p));
   }
   return inputs;
 }
 
 // Get all actual locations from all particles
+function outputSingle(p){
+  var single_output = [];
+  single_output.push( p.position.normalized_x() );
+  single_output.push( p.position.normalized_y() );
+  return single_output;
+}
+
 function stackOutputs(P){
   var outputs = []
   for(var i = 0; i<P.length; i++){
     var p = P[i];
-    outputs.push( p.position.normalized_x() );
-    outputs.push( p.position.normalized_y() );
+    outputs = outputs.concat(outputSingle(p));
   }
   return outputs;
 }
 
 // Predict location of all particles
-function predict(P){
-  inputs = stackInputs(P);
+function predict(p){
+  var inputs = inputSingle(p);
   predicted_coords = where_net.activate(inputs);
-  // Update all particles with new predictions
-  for(var i = 0; i < P.length; i++){
-    P[i].noisy_x = predicted_coords[2*i];
-    P[i].noisy_y = predicted_coords[2*i + 1];
-  }
+  p.noisy_x = predicted_coords[0];
+  p.noisy_y = predicted_coords[1];
 }
 
-function learn(P){
+function learn(p){
   // Backpropagate Network
-  //if(num_iter < 10000){
-  var error = 0;
-  for(var i = 0;i<P.length;i++){
-    var p = P[i];
-    error = error + Math.sqrt(Math.pow(p.position.normalized_x() - p.noisy_x,2) + Math.pow(p.position.normalized_y() - p.noisy_y,2))
-  }
-  error = error/P.length;
-  if(num_iter % 100 == 0){
-    console.log("Average Error at " + String(num_iter) + " iteration : " + String(error));
-  }
-
-    outputs = stackOutputs(P);
-    where_net.propagate(learning_rate, outputs);
-  //}else if(num_iter % 10 == 0){ // only update parameters 10% of the time after initial training
-  //  outputs = stackOutputs(P);
-  //  where_net.propagate(0.1, outputs);
-  //}
-
+  var outputs = outputSingle(p);
+  where_net.propagate(learning_rate, outputs);
 }
 
 var Vector = function(x, y) {
@@ -217,10 +209,10 @@ var System = function(amount, milliseconds) {
         context.globalCompositeOperation = 'source-in';
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.globalCompositeOperation = 'lighter';
-        predict(particles);
         for (var i = 0; i < amount; i++) {
           // REMOVED GRAVITY - all particles now move randomly
             var a = particles[i];
+            predict(a);
             var rand_vector = new Vector(Math.random() * canvas.width, Math.random() * canvas.height)
             var vec = a.position.sub(rand_vector)
             var length = vec.length();
@@ -228,65 +220,24 @@ var System = function(amount, milliseconds) {
             a.acceleration.isub(vec);
             a.step(i);
             a.draw(context,styles[i],i)
+            learn(a);
         }
-        learn(particles);
     }, milliseconds);
 }
-var Dots = function() {
+var main = function() {
     var num_dots = 8;
-    var system = new System(num_dots, 20);
+    var system = new System(num_dots, 40);
 
     // Neural Network
-    //where_net = new Architect.Perceptron(4,20,10,2);
+    where_net = new Architect.Perceptron(4,40,2);
 
     // LSTM
-    where_net = new Architect.LSTM(4*num_dots,20,2*num_dots);
+    //where_net = new Architect.LSTM(4*num_dots,40,2*num_dots);
+    // An LSTM would clearly be better than a regular perceptron for this
+    // problem, but there appears to be a bug in Synaptic where a LSTM
+    // of this size causes the page to become unresponsive.  Attempting to
+    // reload the page causes it to stall.
+    // So instead I'm using a more shallow (less effective) network in trade
+    // for better
+    // PRESENTATION
 };
-
-// Data collection functions
-// DO NOT RUN OUTSIDE OF LOCALHOST - SUPER DANGEROUS
-/*
-function addData(P){
-  if(num_iter < 100000){
-    var p = P[0];
-    var x = String(p.noisy_x) + "," +
-             String(p.noisy_y) + "," +
-             String(p.velocity.normalized_noisy_angle()) + "," +
-             String(p.velocity.normalized_noisy_magnitude());
-    var y = String(p.position.normalized_x()) + "," +
-             String(p.position.normalized_y());
-    for(var i=1;i<P.length;i++){
-      var dx = "," + String(p.noisy_x) + "," +
-               String(p.noisy_y) + "," +
-               String(p.velocity.normalized_noisy_angle()) + "," +
-               String(p.velocity.normalized_noisy_magnitude());
-      var dy = "," + String(p.position.normalized_x()) + "," +
-               String(p.position.normalized_y());
-      x += dx;
-      y += dy;
-    }
-    if(!x.includes("undefined") && !y.includes("undefined")){
-      data_x += x + "\n";
-      data_y += y + "\n";
-    }
-    if(num_iter % 1000 == 0){
-      console.log(num_iter);
-    }
-  }
-}
-
-function download(text,name) {
-  var element = document.createElement('a');
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-  element.setAttribute('download', name);
-  document.body.appendChild(element);
-  element.click();
-}
-
-function show(){
-  var data = "<p>" + data_x + "</p>";
-  var myWindow = window.open("data:text/html," + encodeURIComponent(data),
-                         "_blank", "width=200,height=100");
-  myWindow.focus();
-}
-*/
