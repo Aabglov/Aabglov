@@ -224,7 +224,7 @@ var System = function(amount, milliseconds) {
         }
     }, milliseconds);
 }
-var main = function() {
+var Dots = function() {
     var num_dots = 8;
     var system = new System(num_dots, 40);
 
