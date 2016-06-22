@@ -17,6 +17,10 @@ function init(){
     screen_height = $(window).height()
     screen_width = $(window).width()
 
+    // Set canvas width dynamically
+    var canvas = document.getElementsByTagName('canvas')[0];
+    canvas.width = $("#tools").width();
+
     // Get the em size
     var em_width = screen_width / parseFloat($("body").css("font-size"));
     console.log(em_width);
@@ -44,11 +48,11 @@ function init(){
 function mobileInit(){
 
   window.onresize = function(event) {
-    screen_width = $(window).width()
-    screen_height = $(window).height();
-    $("#particles").width(screen_width);
-    $("#particles").height(screen_width); // Keep the box square
-    
+    //screen_width = $(window).width()
+    //screen_height = $(window).height();
+    var canvas = document.getElementsByTagName('canvas')[0];
+    canvas.width = $("#tools").width();
+
     // Perform iPhoneHack if the device is an iPhone
     //if(iOS){
     //  iPhoneHack(screen_height,screen_width);
