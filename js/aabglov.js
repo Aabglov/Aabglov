@@ -26,8 +26,7 @@ function init(){
     console.log(em_width);
 
     // Create the carousel bindings
-    // Bumping this value up because iPhone 6+ is too big in landscape view
-    if(em_width <= 70.0){
+    if(em_width <= 65.0){
       console.log('MOBILE INIT');
       mobileInit();
     }
