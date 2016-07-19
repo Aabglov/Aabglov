@@ -1,6 +1,7 @@
 // Dots courtesy of http://codeflow.org/entries/2010/aug/22/html5-canvas-and-the-flying-dots/
 // I've significantly modified the code and styling, but the basic structure for drawing
-// the dots is his
+// the dots is his.
+// Thanks Florian Boesch!
 
 // Globally accessible particles
 var particles = [];
