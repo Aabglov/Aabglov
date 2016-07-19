@@ -13,8 +13,8 @@
     font-style: normal;
 
     /* LOCAL DEV */
-    src: url('/slick/fonts/slick.eot');
-    src: url('/slick/fonts/slick.eot?#iefix') format('embedded-opentype'), url('/slick/fonts/slick.woff') format('woff'), url('/slick/fonts/slick.ttf') format('truetype'), url('/slick/fonts/slick.svg#slick') format('svg');
+    src: url('./fonts/slick.eot');
+    src: url('./fonts/slick.eot?#iefix') format('embedded-opentype'), url('./fonts/slick.woff') format('woff'), url('./fonts/slick.ttf') format('truetype'), url('./fonts/slick.svg#slick') format('svg');
 }
 
 /* Arrows */
