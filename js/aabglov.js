@@ -42,6 +42,18 @@ function init(){
         });
     });
 
+    // Populate this week's cage Movie
+    var movie_ind = 0;
+    var today = new Date(Date.now());
+    for(var i = 0;i < date_list.length;i++){
+      if(date_list[i] < today && today < date_list[i+1]){
+        movie_ind = i;
+      }
+    }
+    movie_ind = movie_ind + 30;// Begin with 30 -- the number we've already watched.
+    console.log(movie_ind);
+    $('.cage').html("My friends and I LOVE Nicolas Cage.  We're watching his movies.  All of them.  In chronological order of release.  This week we're watching: " + movies[movie_ind]);
+
 }
 
 function mobileInit(){
