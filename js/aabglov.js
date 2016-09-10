@@ -20,6 +20,7 @@ function init(){
     // Set canvas width dynamically
     var canvas = document.getElementsByTagName('canvas')[0];
     canvas.width = $("#tools").width();
+    canvas.height = Math.min(200,canvas.width);
 
     // Get the em size
     var em_width = screen_width / parseFloat($("body").css("font-size"));
@@ -63,7 +64,7 @@ function mobileInit(){
     //screen_height = $(window).height();
     var canvas = document.getElementsByTagName('canvas')[0];
     canvas.width = $("#tools").width();
-
+    canvas.height = Math.min(200,canvas.width);
     // Perform iPhoneHack if the device is an iPhone
     //if(iOS){
     //  iPhoneHack(screen_height,screen_width);
