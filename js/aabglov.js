@@ -20,7 +20,6 @@ function init(){
     // Set canvas width dynamically
     var canvas = document.getElementsByTagName('canvas')[0];
     canvas.width = $("#tools").width();
-    canvas.height = Math.min(200,canvas.width);
 
     // Get the em size
     var em_width = screen_width / parseFloat($("body").css("font-size"));
@@ -70,6 +69,10 @@ function mobileInit(){
     //  iPhoneHack(screen_height,screen_width);
     //}
   };
+
+  // Trigger the window.onresize function once to
+  // apply all our custom sizing
+  window.onresize();
 
   // Create Carousel
   $('#cv').slick({
