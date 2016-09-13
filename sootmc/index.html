@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<!-- META -->
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<title>Secret Order of the Midnight Cage</title>
+
+	<!-- CAGE MOVIE HELPERS -->
+	<script type="text/javascript" src="dates.js"></script>
+	<script type="text/javascript" src="links.js"></script>
+	<script>
+		// Populate this week's cage Movie
+		function CAGE(){
+			var movie_ind = 0;
+			var today = new Date(Date.now());
+			for(var i = 0;i < date_list.length;i++){
+				if(date_list[i] < today && today < date_list[i+1]){
+					movie_ind = i;
+				}
+			}
+			movie_ind = movie_ind + 30;// Begin with 30 -- the number we've already watched.
+			console.log(movie_ind);
+			window.location.replace(movies[movie_ind]);
+		}
+	</script>
+
+</head>
+	<body onload="CAGE();">
+	</body>
+</html>
