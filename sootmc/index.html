@@ -20,7 +20,7 @@
 					movie_ind = i;
 				}
 			}
-			movie_ind = movie_ind + 30;// Begin with 30 -- the number we've already watched.
+			movie_ind = movie_ind + DATE_BUFFER;// Begin with 29 -- the number we've already watched.
 			console.log(movie_ind);
 			window.location.replace(movies[movie_ind]);
 		}

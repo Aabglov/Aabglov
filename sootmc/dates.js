@@ -74,3 +74,5 @@ for(i in date_string_list){
     date = new Date(date_string_list[i]);
     date_list.push(date);
 }
+
+var DATE_BUFFER = 29;
