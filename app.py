@@ -18,8 +18,12 @@ app.debug = True#'DEBUG' in os.environ
 def test(msg):
     return "Your message: {}".format(msg.upper())
 
-@app.route('/',methods=["POST"])
+@app.route('/',methods=["GET"])
 def hello():
+    return "Hello"
+
+@app.route('/',methods=["POST"])
+def post():
     data = request.json
     clean_msg = HTMLParser.HTMLParser().unescape(data.get("msg"))
     new_msg = test(clean_msg)
