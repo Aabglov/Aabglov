@@ -75,4 +75,4 @@ for(i in date_string_list){
     date_list.push(date);
 }
 
-var DATE_BUFFER = 28;
+var DATE_BUFFER = 27;
