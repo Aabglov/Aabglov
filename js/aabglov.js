@@ -6,6 +6,7 @@ var cal_height;
 var map_size = 0.8;
 var iOS = false;
 
+
 //window.onload = init;
 $(document).ready(init);
 
@@ -53,6 +54,8 @@ function init(){
     movie_ind = movie_ind + DATE_BUFFER;// Begin with 30 -- the number we've already watched.
     console.log(movie_ind);
     $('.cage').html("My friends and I LOVE Nicolas Cage.  We're watching his movies.  All of them.  In chronological order of release.  This week we're watching: " + movies[movie_ind]);
+
+    //network = new vis.Network(container, graph_data, options);
 
 }
 

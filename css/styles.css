@@ -22,6 +22,12 @@ body {
   background-clip: text;
 }
 
+#graph-holder{
+    /*width: 800px;*/
+    width: auto;
+    height: 500px;
+    background-color: #000;
+}
 
 .title {
   font-size: 50px;
@@ -58,7 +64,7 @@ body {
     font-size: 20px;
   }
 
-  #about,#experience,#tools,#why,#now{
+  #about,#graph,#experience,#tools,#why,#now{
       height: 100%;
       width: 100%;
       overflow-x:scroll;

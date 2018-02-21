@@ -8,6 +8,10 @@
 	<link rel="stylesheet" href="css/foundation.css" />
 	<script src="js/vendor/modernizr.js"></script>
 
+	<!-- VIS -->
+	<script type="text/javascript" src="js/vis.js"></script>
+	<link href="css/vis-network.min.css" rel="stylesheet" type="text/css"/>
+
 	<!-- JQUERY -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/vendor/jquery.easing.min.js"></script>
@@ -35,6 +39,7 @@
 	<!-- LOCAL -->
 	<link rel="stylesheet" href="css/styles.css" />
 	<script type="text/javascript" src="js/aabglov.js"></script>
+
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
 
@@ -58,6 +63,11 @@
           This a demo I've been working on to improve GPS tracking.  The dots above move about the area randomly while a neural network learns how to predict their next positions from their speed and direction.  The squares represent where the network believes the dots to be based on the last location, direction and speed.  To represent more realistic data there's also 20% random noise in both direction and speed.
         </p>
     </div>
+
+		<div id='graph' class="large-10 columns">
+				<div class="title">Graph</div>
+				<div id='graph-holder'></div>
+		</div>
 
     <div id='experience' class="large-10 columns">
       <div class="title">Current Projects</div>
@@ -91,6 +101,68 @@
     </div>
 
   </div>
+	<script type="text/javascript">
+	var len = undefined;
+
+	var nodes = [{id: 0, label: "input", group: 0},
+	    {id: 1, label: "hidden1", group: 1},
+	    {id: 2, label: "hidden1", group: 1},
+	    {id: 3, label: "hidden1", group: 1},
+
+	    {id: 4, label: "hidden2", group: 2},
+	    {id: 5, label: "hidden2", group: 2},
+	    {id: 6, label: "hidden2", group: 2},
+
+	    {id: 7, label: "output", group: 3}
+	    //{id: 8, label: "10", group: 3},
+	    //{id: 9, label: "11", group: 3}
+	];
+	var edges = [{from: 1, to: 0},
+	    {from: 2, to: 0},
+	    {from: 3, to: 0},
+
+
+			{from: 4, to: 1},
+	    {from: 5, to: 1},
+	    {from: 6, to: 1},
+
+			{from: 4, to: 2},
+	    {from: 5, to: 2},
+	    {from: 6, to: 2},
+
+			{from: 4, to: 3},
+	    {from: 5, to: 3},
+	    {from: 6, to: 3},
+
+			{from: 4, to: 7},
+	    {from: 5, to: 7},
+	    {from: 6, to: 7}
+	]
+
+	// create a network
+	var container = document.getElementById('graph-holder');
+	var graph_data = {
+	    nodes: nodes,
+	    edges: edges
+	};
+	var options = {
+	    nodes: {
+	        shape: 'dot',
+	        size: 30,
+	        font: {
+	            size: 32
+	        },
+	        borderWidth: 2,
+	        shadow:true
+	    },
+	    edges: {
+	        width: 2,
+	        shadow:true
+	    }
+	};
+
+			network = new vis.Network(container, graph_data, options);
+	</script>
 
 </body>
 </html>
