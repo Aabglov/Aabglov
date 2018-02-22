@@ -29,7 +29,7 @@ var styles = ['rgba(255,0,0,1.0)',
             ];
 
 // Recurrent Neural Network
-var learning_rate = 0.03;
+var learning_rate = 0.1 //0.03;
 var where_net;
 
 
@@ -50,30 +50,12 @@ function inputSingle(p){
   single_input.push( p.velocity.normalized_noisy_magnitude() );
   return single_input;
 }
-function stackInputs(P){
-  var inputs = []
-  for(var i = 0; i<P.length; i++){
-    var p = P[i];
-    inputs = inputs.concat(inputSingle(p));
-  }
-  return inputs;
-}
-
 // Get all actual locations from all particles
 function outputSingle(p){
   var single_output = [];
   single_output.push( p.position.normalized_x() );
   single_output.push( p.position.normalized_y() );
   return single_output;
-}
-
-function stackOutputs(P){
-  var outputs = []
-  for(var i = 0; i<P.length; i++){
-    var p = P[i];
-    outputs = outputs.concat(outputSingle(p));
-  }
-  return outputs;
 }
 
 // Predict location of all particles
@@ -87,12 +69,17 @@ function predict(p){
 function learn(p){
   // Backpropagate Network
   var outputs = outputSingle(p);
+  //console.log(where_net.layers.hidden[0].list[0].connections.projected[22].weight);
+  //console.log(where_net.layers.hidden[0].list[0].bias +", "+where_net.layers.hidden[0].list[1].bias +"," +where_net.layers.hidden[0].list[2].bias);
   where_net.propagate(learning_rate, outputs);
 }
 
 var Vector = function(x, y) {
     this.x = x;
     this.y = y;
+
+    this.canvas_x = x - (canvas_width/2.0);
+    this.canvas_y = y - (canvas_height/2.0);
 
     this.sub = function(other) {
         return new Vector(this.x - other.x, this.y - other.y);
@@ -123,20 +110,20 @@ var Vector = function(x, y) {
         }
     }
     this.angle = function(){
-      return Math.atan(this.y/this.x) % Math.PI/2; // Radians
+      return Math.atan(this.canvas_y/this.canvas_x) % Math.PI/2; // Radians
     }
     this.noisy_angle = function(){
-      return (Math.atan(this.y/this.x) + (angle_noise * Math.PI/2 * (Math.random() - 0.5))) % Math.PI/2;// Tangent has range from -pi/2 to pi/2
+      return (Math.atan(this.canvas_y/this.canvas_x) + (angle_noise * Math.PI/2 * (Math.random() - 0.5))) % Math.PI/2;// Tangent has range from -pi/2 to pi/2
     }
     this.noisy_magnitude = function(){
-      return Math.min(Math.sqrt(this.x * this.x + this.y * this.y) + (magnitude_noise * canvas_diag * (Math.random() -0.5)),canvas_diag); // Make sure magnitude isn't greater than canvas
+      return Math.min(Math.sqrt((this.canvas_x * this.canvas_x) + (this.canvas_y * this.canvas_y)) + (magnitude_noise * canvas_diag * (Math.random() -0.5)),canvas_diag); // Make sure magnitude isn't greater than canvas
     }
     // Normalize inputs to network
     this.normalized_noisy_angle = function(){
       return (this.noisy_angle() + Math.PI/2) / Math.PI;
     }
     this.normalized_noisy_magnitude = function(){
-      return this.noisy_magnitude()/canvas_diag;
+      return this.noisy_magnitude()/(canvas_diag);
     }
     this.normalized_x = function(){
       return this.x/canvas_width;
@@ -203,13 +190,15 @@ var System = function(amount, milliseconds) {
     var context = canvas.getContext('2d');
     for (var i = 0; i < amount; i++) {
         particles.push(new Particle(canvas));
-        first_particle = particles[0];
+        //first_particle = particles[0];
     }
     setInterval(function() {
         context.fillStyle = 'rgba(0,0,0,1.0)';
         context.globalCompositeOperation = 'source-in';
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.globalCompositeOperation = 'lighter';
+        var max_mag = 0;
+        var max_mag_ind = 0;
         for (var i = 0; i < amount; i++) {
           // REMOVED GRAVITY - all particles now move randomly
             var a = particles[i];
@@ -222,18 +211,37 @@ var System = function(amount, milliseconds) {
             a.step(i);
             a.draw(context,styles[i],i)
             learn(a);
+
+            if(a.velocity.length() > max_mag){
+                max_mag = a.velocity.length();
+                max_mag_ind = i;
+            }
+        }
+        //console.log(particles[0].velocity.length() + ", " + particles[0].velocity.angle());
+        console.log(max_mag_ind + ", "+ particles[max_mag_ind].velocity.length() + ", " + particles[max_mag_ind].velocity.noisy_magnitude() + ", " + particles[max_mag_ind].velocity.normalized_noisy_magnitude())
+        // Update the graph
+        var net_vals = where_net.toJSON();
+        var cons = net_vals.connections;
+        for(var i = 0; i < cons.length; i++) {
+            var con = cons[i];
+            updateEdge(con.to,con.from, con.weight);
+        }
+        var neurons = net_vals.neurons;
+        for(var i=0; i<neurons.length;i++){
+            updateColor(i, neurons[i].activation);
         }
     }, milliseconds);
 }
 var Dots = function() {
     var num_dots = 8;
-    var system = new System(num_dots, 40);
+    var milliseconds = 20;
+    var system = new System(num_dots, milliseconds);
 
     // Neural Network
-    where_net = new Architect.Perceptron(4,40,2);
+    where_net = new Architect.Perceptron(4,5,2);
 
     // LSTM
-    //where_net = new Architect.LSTM(4*num_dots,40,2*num_dots);
+    //where_net = new Architect.LSTM(4,3,2);
     // An LSTM would clearly be better than a regular perceptron for this
     // problem, but there appears to be a bug in Synaptic where a LSTM
     // of this size causes the page to become unresponsive.  Attempting to

@@ -102,66 +102,140 @@
 
   </div>
 	<script type="text/javascript">
-	var len = undefined;
+			var nodes, edges, network;
 
-	var nodes = [{id: 0, label: "input", group: 0},
-	    {id: 1, label: "hidden1", group: 1},
-	    {id: 2, label: "hidden1", group: 1},
-	    {id: 3, label: "hidden1", group: 1},
+			function startNetwork(){
+					var nodesArray = [{id: 0, label: "input"},
+							{id: 1, label: "input"},
+							{id: 2, label: "input"},
+							{id: 3, label: "input"},
 
-	    {id: 4, label: "hidden2", group: 2},
-	    {id: 5, label: "hidden2", group: 2},
-	    {id: 6, label: "hidden2", group: 2},
-
-	    {id: 7, label: "output", group: 3}
-	    //{id: 8, label: "10", group: 3},
-	    //{id: 9, label: "11", group: 3}
-	];
-	var edges = [{from: 1, to: 0},
-	    {from: 2, to: 0},
-	    {from: 3, to: 0},
+					    {id: 4, label: "hidden"},
+					    {id: 5, label: "hidden"},
+					    {id: 6, label: "hidden"},
+							{id: 7, label: "hidden"},
+							{id: 8, label: "hidden"},
 
 
-			{from: 4, to: 1},
-	    {from: 5, to: 1},
-	    {from: 6, to: 1},
+					    //{id: 4, label: "hidden2"},
+					    //{id: 5, label: "hidden2"},
+					    //{id: 6, label: "hidden2"},
 
-			{from: 4, to: 2},
-	    {from: 5, to: 2},
-	    {from: 6, to: 2},
+					    {id: 9, label: "output"},
+							{id: 10, label: "output"}
+					];
+					nodes = new vis.DataSet(nodesArray);
 
-			{from: 4, to: 3},
-	    {from: 5, to: 3},
-	    {from: 6, to: 3},
+					var edgesArray = [{from: 4, to: 0},
+					    {from: 5, to: 0},
+					    {from: 6, to: 0},
+							{from: 7, to: 0},
+					    {from: 8, to: 0},
 
-			{from: 4, to: 7},
-	    {from: 5, to: 7},
-	    {from: 6, to: 7}
-	]
+							{from: 4, to: 1},
+					    {from: 5, to: 1},
+					    {from: 6, to: 1},
+							{from: 7, to: 1},
+					    {from: 8, to: 1},
 
-	// create a network
-	var container = document.getElementById('graph-holder');
-	var graph_data = {
-	    nodes: nodes,
-	    edges: edges
-	};
-	var options = {
-	    nodes: {
-	        shape: 'dot',
-	        size: 30,
-	        font: {
-	            size: 32
-	        },
-	        borderWidth: 2,
-	        shadow:true
-	    },
-	    edges: {
-	        width: 2,
-	        shadow:true
-	    }
-	};
+							{from: 4, to: 2},
+					    {from: 5, to: 2},
+					    {from: 6, to: 2},
+							{from: 7, to: 2},
+					    {from: 8, to: 2},
 
-			network = new vis.Network(container, graph_data, options);
+							{from: 4, to: 3},
+					    {from: 5, to: 3},
+					    {from: 6, to: 3},
+							{from: 7, to: 3},
+					    {from: 8, to: 3},
+
+					    {from: 9, to: 4},
+							{from: 9, to: 5},
+							{from: 9, to: 6},
+							{from: 9, to: 7,},
+							{from: 9, to: 8},
+
+							{from: 10, to: 4},
+							{from: 10, to: 5},
+							{from: 10, to: 6},
+							{from: 10, to: 7},
+							{from: 10, to: 8}
+					]
+					edges = new vis.DataSet(edgesArray);
+
+					// create a network
+					var container = document.getElementById('graph-holder');
+
+					var graph_data = {
+					    nodes: nodes,
+					    edges: edges
+					};
+
+					var options = {
+					    nodes: {
+					        shape: 'dot',
+					        size: 30,
+					        font: {
+					            size: 32
+					        },
+					        borderWidth: 2,
+									color: {
+							      border: '#FF0000',
+							      background: '#FF0000'
+							      // highlight: {
+							      //   border: '#2B7CE9',
+							      //   background: '#D2E5FF'
+							      // }
+							    },
+					        shadow:true
+					    },
+					    edges: {
+					        width: 2,
+					        shadow:true
+					    },
+							layout: {
+						    randomSeed: undefined,
+						    improvedLayout:false,
+						    hierarchical: {
+							      enabled:true,
+							      levelSeparation: 150,
+							      nodeSpacing: 100,
+							      treeSpacing: 200,
+							      direction: 'RL',        // UD, DU, LR, RL
+							      sortMethod: 'directed'   // hubsize, directed
+						    }
+					  },
+						interaction:{
+								zoomView: false
+						}
+					};
+					network = new vis.Network(container, graph_data, options);
+			}
+
+			function getEdgeByNodeIDs(node_id1,node_id2){
+					var edge_vals = Object.values(edges._data)
+					for(var i=0;i<edge_vals.length;i++){
+							var edge = edge_vals[i];
+							// Order doesn't matter so we check both combinations of to and from
+							if((edge.to == node_id1 && edge.from == node_id2) || (edge.from == node_id1 && edge.to == node_id2)){
+									return edge;
+							}
+					}
+			}
+
+			function updateEdge(id1,id2, scale){
+					var edge = getEdgeByNodeIDs(id1,id2);
+					var newColor = "rgb(125,0," + Math.floor(255 * scale) + ")";//'#' + Math.floor((Math.random() * 255 * 255 * 255)).toString(16);
+					edges.update([{id:edge.id, color:{color:newColor}}]);
+			}
+
+			function updateColor(id, scale){
+				var newColor = "rgb(" + Math.floor(255 * scale) + ",0,0)";//'#' + Math.floor((Math.random() * 255 * 255 * 255)).toString(16);
+        nodes.update([{id:id, color:{background:newColor}}]);
+			}
+
+			startNetwork();
 	</script>
 
 </body>

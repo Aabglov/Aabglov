@@ -55,7 +55,9 @@ function init(){
     console.log(movie_ind);
     $('.cage').html("My friends and I LOVE Nicolas Cage.  We're watching his movies.  All of them.  In chronological order of release.  This week we're watching: " + movies[movie_ind]);
 
-    //network = new vis.Network(container, graph_data, options);
+    // var newColor = '#FFFFFF';
+    // nodes.update([{id:0, color:{background:newColor}}]);
+    console.log(network);
 
 }
 
