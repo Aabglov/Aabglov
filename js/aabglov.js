@@ -44,16 +44,15 @@ function init(){
     });
 
     // Populate this week's cage Movie
-    var movie_ind = 0;
-    var today = new Date(Date.now());
-    for(var i = 0;i < date_list.length;i++){
-      if(date_list[i] < today && today < date_list[i+1]){
+    var movie_ind = 1; // First movie index is 1 (Fast Times at Ridgemont High)
+    for(var i = 1;i < Object.keys(movies).length+1;i++){ // We iterate up to length+1 because it's possible this week's movie is the last in the list and we index at 1
+      if(!movies[i]["seen"]){
         movie_ind = i;
+        break;
       }
     }
-    movie_ind = movie_ind + DATE_BUFFER;// Begin with 30 -- the number we've already watched.
     console.log(movie_ind);
-    $('.cage').html("My friends and I LOVE Nicolas Cage.  We're watching his movies.  All of them.  In chronological order of release.  This week we're watching: " + movies[movie_ind]);
+    $('.cage').html("My friends and I LOVE Nicolas Cage.  We're watching his movies.  All of them.  In chronological order of release.  This week we're watching: " + movies[movie_ind]["link"]);
 
     // var newColor = '#FFFFFF';
     // nodes.update([{id:0, color:{background:newColor}}]);

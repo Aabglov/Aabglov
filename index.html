@@ -33,7 +33,6 @@
 	<script type="text/javascript" src="dots/dots.js"></script>
 
 	<!-- CAGE MOVIE HELPERS -->
-	<script type="text/javascript" src="sootmc/dates.js"></script>
 	<script type="text/javascript" src="sootmc/movies.js"></script>
 
 	<!-- LOCAL -->
@@ -66,6 +65,9 @@
 
 		<div id='graph' class="large-10 columns">
 				<div class="title">Graph</div>
+				<p class="explain">
+						This network graph shows the activations and weights of the network learning to follow dots in the previous section.  The edges represent the weights and the node color represent the layer activation.  Low values appear red and high values appear purple.
+				</p>
 				<div id='graph-holder'></div>
 		</div>
 
@@ -231,7 +233,7 @@
 			}
 
 			function updateColor(id, scale){
-				var newColor = "rgb(" + Math.floor(255 * scale) + ",0,0)";//'#' + Math.floor((Math.random() * 255 * 255 * 255)).toString(16);
+				var newColor = "rgb(125,0," + Math.floor(255 * scale) + ")";//'#' + Math.floor((Math.random() * 255 * 255 * 255)).toString(16);
         nodes.update([{id:id, color:{background:newColor}}]);
 			}
 

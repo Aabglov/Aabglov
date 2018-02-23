@@ -218,7 +218,7 @@ var System = function(amount, milliseconds) {
             }
         }
         //console.log(particles[0].velocity.length() + ", " + particles[0].velocity.angle());
-        console.log(max_mag_ind + ", "+ particles[max_mag_ind].velocity.length() + ", " + particles[max_mag_ind].velocity.noisy_magnitude() + ", " + particles[max_mag_ind].velocity.normalized_noisy_magnitude())
+        //console.log(max_mag_ind + ", "+ particles[max_mag_ind].velocity.length() + ", " + particles[max_mag_ind].velocity.noisy_magnitude() + ", " + particles[max_mag_ind].velocity.normalized_noisy_magnitude())
         // Update the graph
         var net_vals = where_net.toJSON();
         var cons = net_vals.connections;
