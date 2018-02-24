@@ -4,11 +4,11 @@ var movies = {
       'seen':false
    },
    81:{
-      'link':'<a class="link" href="http://www.imdb.com/title/tt6083648">Looking Glass</a>',
+      'link':'<a class="link" href="http://www.imdb.com/title/tt6998518">Mandy</a>',
       'seen':false
    },
    80:{
-      'link':'<a class="link" href="http://www.imdb.com/title/tt6998518">Mandy</a>',
+      'link':'<a class="link" href="http://www.imdb.com/title/tt6083648">Looking Glass</a>',
       'seen':false
    },
    79:{

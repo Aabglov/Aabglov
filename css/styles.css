@@ -64,7 +64,7 @@ body {
     font-size: 20px;
   }
 
-  #about,#graph,#experience,#tools,#why,#now{
+  #about,#graph,#gan,#experience,#tools,#why,#now{
       height: 100%;
       width: 100%;
       overflow-x:scroll;
