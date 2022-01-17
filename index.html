@@ -1,31 +1,44 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
 <head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Aablgov</title>
 	<link rel="stylesheet" href="css/normalize.css" />
 	<link rel="stylesheet" href="css/foundation.css" />
 	<script src="js/vendor/modernizr.js"></script>
 
+	<!-- VIS -->
+	<script type="text/javascript" src="js/vis.js"></script>
+	<link href="css/vis-network.min.css" rel="stylesheet" type="text/css"/>
+
 	<!-- JQUERY -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="js/vendor/jquery.easing.min.js"></script>
-
-	<!-- FONT AWESOME -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 	<!-- SLICK -->
 	<link rel="stylesheet" type="text/css" href="slick/slick.css"/>
 	<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
 	<script type="text/javascript" src="slick/slick.min.js"></script>
 
+	<!-- FOUNDATION -->
+	<script src="js/foundation.min.js"></script>
+
+	<!-- FONT AWESOME -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
 	<!-- DOTS -->
 	<link rel="stylesheet" type="text/css" href="dots/styles.css"/>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/synaptic/1.0.4/synaptic.min.js"></script>
 	<script type="text/javascript" src="dots/dots.js"></script>
 
+	<!-- CAGE MOVIE HELPERS -->
+	<!-- <script type="text/javascript" src="sootmc/movies.js"></script> -->
+
 	<!-- LOCAL -->
 	<link rel="stylesheet" href="css/styles.css" />
 	<script type="text/javascript" src="js/aabglov.js"></script>
+
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
 
@@ -35,55 +48,86 @@
           <!-- PRESENTATION IS EVERYTHING -->
   <div id='cv' class="row">
 
-
 		<div id='tools' class="large-10 columns">
       <div class="title">Hello World</div>
 				<p class="explain">
 					I'm Kegan.
 				</p>
+				<img class="logo" src="logo.png"/>
 				<p class="explain">
-					This is my website.  It's just a little about me, my projects and my favorite obsession: machine learning.
+					Welcome to my website.  Here you can see some of my projects, learn about more about me and get excited about the cool things I can build for you.
 				</p>
 				<canvas id="particles" width="400px" height="400px" ></canvas>
 				<p class="explain">
-          This a demo I've been working on to improve GPS tracking on mobile devices.  The dots above move about the area randomly while a neural network learns how to predict their next positions from their speed and direction.  The squares represent where the network believes the dots to be based on the last location, direction and speed.  To represent more realistic data there's also 20% random noise in both direction and speed.
-        </p>
-				<p class="explain">
-          I think this same technology could be applied to mobile sensors such as the accelerometer to reduce the reliance of location-tracking applications on GPS.  This would result in improved battery life while using the apps and the ability to use apps in areas of weak GPS signal.
+          This a demo I've been working on to improve GPS tracking.  The dots above move about the area randomly while a neural network learns how to predict their next positions from their speed and direction.  The squares represent where the network believes the dots to be based on the last location, direction and speed.  To represent more realistic data there's also 20% random noise in both direction and speed.
         </p>
     </div>
+
+		<div id='graph' class="large-10 columns">
+				<div class="title">Graph</div>
+				<p class="explain">
+						This network graph shows the activations and weights of the network learning to follow dots in the previous section.  The edges represent the weights and the node color represent the layer activation.  Low values appear red and high values appear purple.
+				</p>
+				<div id='graph-holder'></div>
+		</div>
+
+		<div id='gan' class="large-10 columns">
+				<div class="title">Image Generation</div>
+				<p class="explain">
+						I made a GAN (Generative Adverserial Network) to generate humna gaces.  Using the popular celebrity face dataset <a class="link" href="http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html">CelebA</a> I trained a discriminator to detect generate images and a generator to create images.  The two fought against each other for thousands of epochs (about 2 days) and here are some of the final samples:
+				</p>
+				<div class='image-holder large-4 large-offset-4'>
+						<div class="row">
+								<img src="faces/face1.png"/>
+								<img src="faces/face2.png"/>
+								<img src="faces/face3.png"/>
+						</div>
+						<div class="row">
+								<img src="faces/face4.png"/>
+								<img src="faces/face5.png"/>
+								<img src="faces/face6.png"/>
+						</div>
+						<div class="row">
+								<img src="faces/face7.png"/>
+								<img src="faces/face8.png"/>
+								<img src="faces/face9.png"/>
+						</div>
+				</div>
+				<p class="explain">
+						Not all of the generated images were winners.  Here's some of my favorite eldritch-horrors from training:
+				</p>
+				<div class='image-holder large-4 large-offset-4'>
+						<div class="row">
+								<img src="faces/horror1.png"/>
+								<img src="faces/horror2.png"/>
+								<img src="faces/horror3.png"/>
+						</div>
+						<div class="row">
+								<img src="faces/horror4.png"/>
+								<img src="faces/horror5.png"/>
+								<img src="faces/horror6.png"/>
+						</div>
+				</div>
+				<!-- <div id='graph-holder'></div> -->
+		</div>
 
     <div id='experience' class="large-10 columns">
       <div class="title">Current Projects</div>
 				<p class="explain">
-					I'm working with a local government agency to improve the way they collect data on trees.  I'm creating a Recurrent Neural Network that will learn to predict the height of trees based on the heights of other trees in the immediate area.
+					I'm constantly experimenting and researching new Machine Learning methods.  You can checkout some of my work <a class="link" href="https://github.com/Aabglov/tensorflow">HERE</a>.  I've played around with a bunch of different modules and frameworks, but nothing beats building your own model and setting out on a problem.
 				</p>
 				<p class="explain">
-          I've played around with a lot of different Machine Learning libraries, but by far my favorite is Theano for Python.  I love the control, the power and the flexibility.  However that same flexibility and power can lead to code that's difficult to understand and debug.  I've seen add-on modules like Lasagne which help standardize things, but at the cost of control.	So I've started my own which you can check out here: <a class="link" href="https://github.com/Aabglov/TheanoSeq2Seq">https://github.com/Aabglov/TheanoSeq2Seq</a>.
-					</p>
-					<p class="explain">
-					It began as just a sequence-to-sequence program, but has balooned into my personal Machine Learning library.  I'm currently working on automating the initialization of multiple layers and debugging an LSTM that's learning to rap.
-        </p>
-				<p class="explain">
-					My friends and I LOVE Nicolas Cage.  We're watching his movies.  All of them.  In chronological order of release.  This week we're watching: <a class="link" href="http://www.imdb.com/title/tt0119094/">Face/Off</a>
+					I love building websites.  I built this website myself from scratch.  Yeah, there are way easier ways to make websites these days, but I enjoy building them.  You can checkout the code here: <a class="link" href="https://github.com/Aabglov/Aabglov">https://github.com/Aabglov/Aabglov</a>
 				</p>
-				<p class="explain">
-          I'm also playing Pokemon Go.  Team Valor for the win!
-        </p>
+				<p class="explain cage">
+					I'm not all business though.  My friends and I LOVE Nicolas Cage.  We're watching his movies.  All of them.  In chronological order of release.  Check out what we're watching: <a class="link" href="https://www.imdb.com/name/nm0000115/#actor">this week</a>
+				</p>
     </div>
 
-    <div id='websites' class="large-10 columns end">
-      <div class="title">Web Development</div>
-        <p class="explain">
-          As an exercise in responsive web development I built the website for a local game shop: <a class="link" href="http://missoula.retrofixgaming.com/">http://missoula.retrofixgaming.com/</a>.  I learned a lot from that project, but my favorite trick was the swipe navigation in mobile view (which I also put in this website).
-        </p>
-				<p class="explain">
-					This project was more about pushing my boundaries as a developer and exposing myself to new technologies than machine learning.  I really enjoyed it and the experience eventually allowed me to make my own website.
-				</p>
-				<p class="explain">
-					I'm currently using this template I've developed to rebuild the website for a local pizza joint.  This one is still in early development, but you can compare progress so far.  Before: <a class="link" href="http://www.bigapizza.com/">http://www.bigapizza.com</a>.  After: <a class="link" href="http://aabglov.github.io/Biga-Pizza/">http://aabglov.github.io/Biga-Pizza/</a>
-				</p>
-    </div>
+		<div id='video' class='large-10 columns'>
+			<div class="title">Who is this guy?</div>
+			<iframe width="100%" height="422" src="https://www.youtube.com/embed/YPkiWIAqWM0" frameborder="0" allowfullscreen></iframe>
+		</div>
 
     <div id='why' class="large-10 columns end">
       <div class="title">A few bits about me</div>
@@ -98,13 +142,143 @@
 	      </p>
     </div>
 
-    <div id='stackoverflow' class="large-10 columns end">
-      <div class="title">More</div>
-      <p class="explain">
-        If you've lasted this long then you must like what you see.  You can learn more about me here: <a class="link" href="https://stackoverflow.com/users/3078887/aabglov">My Stack Overflow Profile</a>
-      </p>
-    </div>
   </div>
+	<script type="text/javascript">
+			var nodes, edges, network;
+
+			function startNetwork(){
+					var nodesArray = [{id: 0, label: "input"},
+							{id: 1, label: "input"},
+							{id: 2, label: "input"},
+							{id: 3, label: "input"},
+
+					    {id: 4, label: "hidden"},
+					    {id: 5, label: "hidden"},
+					    {id: 6, label: "hidden"},
+							{id: 7, label: "hidden"},
+							{id: 8, label: "hidden"},
+
+
+					    //{id: 4, label: "hidden2"},
+					    //{id: 5, label: "hidden2"},
+					    //{id: 6, label: "hidden2"},
+
+					    {id: 9, label: "output"},
+							{id: 10, label: "output"}
+					];
+					nodes = new vis.DataSet(nodesArray);
+
+					var edgesArray = [{from: 4, to: 0},
+					    {from: 5, to: 0},
+					    {from: 6, to: 0},
+							{from: 7, to: 0},
+					    {from: 8, to: 0},
+
+							{from: 4, to: 1},
+					    {from: 5, to: 1},
+					    {from: 6, to: 1},
+							{from: 7, to: 1},
+					    {from: 8, to: 1},
+
+							{from: 4, to: 2},
+					    {from: 5, to: 2},
+					    {from: 6, to: 2},
+							{from: 7, to: 2},
+					    {from: 8, to: 2},
+
+							{from: 4, to: 3},
+					    {from: 5, to: 3},
+					    {from: 6, to: 3},
+							{from: 7, to: 3},
+					    {from: 8, to: 3},
+
+					    {from: 9, to: 4},
+							{from: 9, to: 5},
+							{from: 9, to: 6},
+							{from: 9, to: 7,},
+							{from: 9, to: 8},
+
+							{from: 10, to: 4},
+							{from: 10, to: 5},
+							{from: 10, to: 6},
+							{from: 10, to: 7},
+							{from: 10, to: 8}
+					]
+					edges = new vis.DataSet(edgesArray);
+
+					// create a network
+					var container = document.getElementById('graph-holder');
+
+					var graph_data = {
+					    nodes: nodes,
+					    edges: edges
+					};
+
+					var options = {
+					    nodes: {
+					        shape: 'dot',
+					        size: 30,
+					        font: {
+					            size: 32
+					        },
+					        borderWidth: 2,
+									color: {
+							      border: '#FF0000',
+							      background: '#FF0000'
+							      // highlight: {
+							      //   border: '#2B7CE9',
+							      //   background: '#D2E5FF'
+							      // }
+							    },
+					        shadow:true
+					    },
+					    edges: {
+					        width: 2,
+					        shadow:true
+					    },
+							layout: {
+						    randomSeed: undefined,
+						    improvedLayout:false,
+						    hierarchical: {
+							      enabled:true,
+							      levelSeparation: 150,
+							      nodeSpacing: 100,
+							      treeSpacing: 200,
+							      direction: 'RL',        // UD, DU, LR, RL
+							      sortMethod: 'directed'   // hubsize, directed
+						    }
+					  },
+						interaction:{
+								zoomView: false
+						}
+					};
+					network = new vis.Network(container, graph_data, options);
+			}
+
+			function getEdgeByNodeIDs(node_id1,node_id2){
+					var edge_vals = Object.values(edges._data)
+					for(var i=0;i<edge_vals.length;i++){
+							var edge = edge_vals[i];
+							// Order doesn't matter so we check both combinations of to and from
+							if((edge.to == node_id1 && edge.from == node_id2) || (edge.from == node_id1 && edge.to == node_id2)){
+									return edge;
+							}
+					}
+			}
+
+			function updateEdge(id1,id2, scale){
+					var edge = getEdgeByNodeIDs(id1,id2);
+					var newColor = "rgb(125,0," + Math.floor(255 * scale) + ")";//'#' + Math.floor((Math.random() * 255 * 255 * 255)).toString(16);
+					edges.update([{id:edge.id, color:{color:newColor}}]);
+			}
+
+			function updateColor(id, scale){
+				var newColor = "rgb(125,0," + Math.floor(255 * scale) + ")";//'#' + Math.floor((Math.random() * 255 * 255 * 255)).toString(16);
+        nodes.update([{id:id, color:{background:newColor}}]);
+			}
+
+			startNetwork();
+	</script>
 
 </body>
 </html>

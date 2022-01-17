@@ -8,14 +8,13 @@
 /* Icons */
 @font-face
 {
-    font-family: slick;
+    font-family: 'slick';
     font-weight: normal;
     font-style: normal;
-    
+
     src: url('./fonts/slick.eot');
     src: url('./fonts/slick.eot?#iefix') format('embedded-opentype'), url('./fonts/slick.woff') format('woff'), url('./fonts/slick.ttf') format('truetype'), url('./fonts/slick.svg#slick') format('svg');
 }
-
 /* Arrows */
 .slick-prev,
 .slick-next
@@ -186,15 +185,6 @@
     width: 20px;
     height: 20px;
 
-    /* Hilarious story here.
-    The buttons at the bottom of the page weren't appearing correctly.  Instead of
-    bullets the server was showing a bunch of nonsense characters.
-    I spent HOURS trying to debug the issue.  I set the cross-domain-request
-    on the server, tried to add mime types, messed with the paths to the font files
-    and nothing worked.
-    Finally I thought, what if it's the character itself that's messed up?
-    Sure enough setting the Default encoding to utf-8 on the server fixed it.
-    Lesson learned */
     content: '•';
     text-align: center;
 
